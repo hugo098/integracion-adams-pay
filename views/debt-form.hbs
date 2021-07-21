@@ -42,9 +42,10 @@
         document.getElementById('total').innerHTML = 'Gs. ' + total;
     }
 
-    function generateDebt(e) {        
+    function generateDebt(e) {
+        document.getElementById("btnGD").setAttribute("disabled", "");        
         e.preventDefault();
-        document.getElementById("btnGD").setAttribute("disabled", "");
+        
         let data = undefined;
         let docId = undefined;
         let payUrl = undefined;
