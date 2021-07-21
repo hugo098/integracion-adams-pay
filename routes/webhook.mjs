@@ -6,10 +6,12 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
     try {
+        console.log('WEBHOOK')
         //adams{"notify":{"id":"id-unico-de-notificacion","type":"(tipo)","version":1,"time":"hora de generación","merchant":"id-de-tu-comercio","app":"id-de-tu-aplicación","env":"ambiente"},"debt":{"docId":"id-de-deuda","objStatus":{"status":"active","time":"2020-05-02T13:51:16+00:00"},"payStatus":{"status":"pending","time":"2020-05-02T13:51:16+00:00"}}}a2ffb3633aee020e53336f6aa4384ce1
         //243eb6edccdf2e01f81698d407918c55
         let hash = md5('adams' + req.body + 'a2ffb3633aee020e53336f6aa4384ce1')
         let hashReq = req.headers['x-adams-notify-hash']
+        console.log(req.body);
         console.log(hash);
         console.log(hashReq)
         if (hash != hashReq) {
