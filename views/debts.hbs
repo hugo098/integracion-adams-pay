@@ -17,9 +17,9 @@
                 <td>{{status}}</td>
                 <td>
                     {{#ifEquals status "Pending"}}
-                    <a class="btn btn-success" href="{{payUrl}}" target="_blank">Pay</a>
+                    <a class="btn btn-success" href="{{payUrl}}">Pay</a>
                     {{else}}
-                    <a class="btn btn-danger disabled" href="" target="_blank">Paid</a>
+                    <a class="btn btn-danger" href="{{payUrl}}">Paid</a>
                     {{/ifEquals}}
 
                 </td>
