@@ -1,10 +1,10 @@
 <h1>Debt form</h1>
 <div class="row">
     <div class="col-sm-2 mb-3">
-        <p id="total">Total: Gs. 0</p>
+        <p id="total">Gs. 0</p>
     </div>
     <div class="col-sm-2 mb-3">
-        <a class="btn btn-success" href="" onclick="generateDebt(event)">Generate debt</a>
+        <a id = "btnGD"class="btn btn-success" href="" onclick="generateDebt(event)">Generate debt</a>
     </div>
 </div>
 <div class="row ">
@@ -44,6 +44,7 @@
 
     function generateDebt(e) {
         e.preventDefault();
+        document.getElementById("btnGD").classList.add("disabled")
         let data = undefined;
         let docId = undefined;
         let payUrl = undefined;
