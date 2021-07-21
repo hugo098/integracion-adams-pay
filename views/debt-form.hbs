@@ -3,8 +3,8 @@
     <div class="col-sm-2 mb-3">
         <p id="total">Gs. 0</p>
     </div>
-    <div class="col-sm-2 mb-3" id="btnGD">
-        <a class="btn btn-success" href="" onclick="generateDebt(event)">Generate debt</a>
+    <div class="col-sm-2 mb-3">
+        <button id="btn-gd" type="submit" class="btn btn-success" onclick="generateDebt(event)">Generate debt</button>
     </div>
 </div>
 <div class="row ">
@@ -44,19 +44,16 @@
 
     function generateDebt(e) {
         e.preventDefault();
-        $('#btnGD').prop("disabled", true);
-
-
+        $("#btn-gd").prop('disabled', true);     
         let data = undefined;
         let docId = undefined;
         let payUrl = undefined;
         let amount = document.getElementById('total').innerHTML;
         amount = amount.split(" ")[1];
-        /*if(amount == 0){
-            alert('You must select at least one product');
-            //document.getElementById("btnGD").setAttribute("disabled", false);
+        if(amount == 0){
+            alert('You must select at least one product');            
             return;
-        }*/
+        }
         console.log(amount)
 
         let startDate = new Date();
