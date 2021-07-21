@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
         let hashReq = req.headers['x-adams-notify-hash']        
         console.log("HASH CON REQ.BODY: " + hash);
         console.log("HASH CABECERA: " + hashReq)       
-       
+        console.log(req.body)
         if (hash != hashReq) {
             throw new Error('Firma inválida');
         }
