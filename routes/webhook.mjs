@@ -14,7 +14,8 @@ router.post('/', async (req, res) => {
         console.log('adams' + JSON.stringify(req.body) + 'a2ffb3633aee020e53336f6aa4384ce1');
         console.log("HASH CON REQ.BODY: " + hash);
         console.log("HASH CABECERA: " + hashReq)
-        console.log(req.rawBody)
+        console.log(md5('adams'+ req.rawBody + 'a2ffb3633aee020e53336f6aa4384ce1'))
+        //console.log(req.rawBody)
         /*if (hash != hashReq) {
             throw new Error('Firma inválida');
         }*/
