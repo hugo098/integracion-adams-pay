@@ -44,7 +44,7 @@
 
     function generateDebt(e) {        
         e.preventDefault();
-        document.getElementById("btnGD").setAttribute("disabled", true);
+        document.getElementById("btnGD").setAttribute("disabled");
         let data = undefined;
         let docId = undefined;
         let payUrl = undefined;
@@ -52,7 +52,7 @@
         amount = amount.split(" ")[1];
         if(amount == 0){
             alert('You must select at least one product');
-            document.getElementById("btnGD").setAttribute("disabled", false);
+            //document.getElementById("btnGD").setAttribute("disabled", false);
             return;
         }
         console.log(amount)
