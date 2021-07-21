@@ -22,13 +22,18 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(path.join(__dirname, 'partials'));
 
-hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
+hbs.registerHelper('ifEquals', function (arg1, arg2, options) {
     return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
 // uncomment after placing you favicon in /public
 //app.use(favicon(path.join(__dirname, 'public/', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+    verify: function (req, res, buf, encoding) {
+        // raw body for signature check
+        req.rawBody = buf.toString();
+    }
+}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -39,7 +44,7 @@ import debtRoutes from './routes/debtsRoutes.mjs';
 import webhook from './routes/webhook.mjs';
 app.use(debtRoutes);
 app.use('/products', productRoutes);
-app.use('/webhook',webhook);
+app.use('/webhook', webhook);
 
 // error handlers
 // catch 404 and forward to error handler
