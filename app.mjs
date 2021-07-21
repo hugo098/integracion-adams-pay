@@ -28,13 +28,13 @@ hbs.registerHelper('ifEquals', function (arg1, arg2, options) {
 // uncomment after placing you favicon in /public
 //app.use(favicon(path.join(__dirname, 'public/', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json({
+app.use(express.json({
     verify: function (req, res, buf, encoding) {
         // raw body for signature check
         req.rawBody = buf.toString();
     }
 }));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
