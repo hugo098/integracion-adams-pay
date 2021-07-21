@@ -4,7 +4,7 @@
         <p id="total">Gs. 0</p>
     </div>
     <div class="col-sm-2 mb-3">
-        <a id = "btnGD"class="btn btn-success" href="" onclick="generateDebt(event)">Generate debt</a>
+        <a id="btnGD" class="btn btn-success" href="" onclick="generateDebt(event)">Generate debt</a>
     </div>
 </div>
 <div class="row ">
@@ -42,10 +42,9 @@
         document.getElementById('total').innerHTML = 'Gs. ' + total;
     }
 
-    function generateDebt(e) {
-        document.getElementById("btnGD").setAttribute("disabled", "disabled");        
+    function generateDebt(e) {        
         e.preventDefault();
-        
+        document.getElementById('btnGD').setAttribute('disabled', '')
         let data = undefined;
         let docId = undefined;
         let payUrl = undefined;
@@ -103,7 +102,7 @@
                 console.log(data)
                 generatePayAdams(data, docId);
             }
-        });      
+        });
 
     }
 
