@@ -42,14 +42,19 @@
         document.getElementById('total').innerHTML = 'Gs. ' + total;
     }
 
-    function generateDebt(e) {
+    function generateDebt(e) {        
         e.preventDefault();
-        document.getElementById("btnGD").classList.add("disabled")
+        document.getElementById("btnGD").setAttribute("disabled");
         let data = undefined;
         let docId = undefined;
         let payUrl = undefined;
         let amount = document.getElementById('total').innerHTML;
         amount = amount.split(" ")[1];
+        if(amount == 0){
+            alert('You must select at least one product');
+            document.getElementById("btnGD").removeAttribute("disabled");
+            return;
+        }
         console.log(amount)
 
         let startDate = new Date();
