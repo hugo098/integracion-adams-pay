@@ -12,8 +12,8 @@ router.post('/', async (req, res) => {
         //let hash = md5('adams' + JSON.stringify(req.body) + 'a2ffb3633aee020e53336f6aa4384ce1')
         //let hashReq = req.headers['x-adams-notify-hash']
         console.log(req.body);
-        console.log(hash);
-        console.log(hashReq)
+        /*console.log(hash);
+        console.log(hashReq)*/
         /*if (hash != hashReq) {
             throw new Error('Firma inválida');
         }*/
