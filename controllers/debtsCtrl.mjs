@@ -7,7 +7,7 @@ const listDebts = async (req, res) => {
         /*return res.status(200).json({
             debts
         });*/
-        console.log(debts)
+        //console.log(debts)
         return res.status(200).render('debts', { debts: debts });
     } catch (err) {
         return res.status(400).json({
