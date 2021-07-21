@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
         //243eb6edccdf2e01f81698d407918c55
         //let hash = md5('adams' + JSON.stringify(req.body) + 'a2ffb3633aee020e53336f6aa4384ce1')
         //let hashReq = req.headers['x-adams-notify-hash']
-        console.log(req.body);
+        console.log('adams' + JSON.stringify(req.body) + 'a2ffb3633aee020e53336f6aa4384ce1');
         /*console.log(hash);
         console.log(hashReq)*/
         /*if (hash != hashReq) {
