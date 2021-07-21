@@ -1,0 +1,145 @@
+<h1>Debt form</h1>
+<div class="row">
+    <div class="col-sm-2 mb-3">
+        <p id="total">Total: Gs. 0</p>
+    </div>
+    <div class="col-sm-2 mb-3">
+        <a class="btn btn-success" href="" onclick="generateDebt(event)">Generate debt</a>
+    </div>
+</div>
+<div class="row ">
+    {{#each products}}
+    <div class="col-sm-4 mb-3">
+        <div class="card" style="width: 18rem;">
+            <img src="{{productImage}}" class="card-img-top" alt="{{productName}}">
+            <div class="card-body">
+                <h5 class="card-title">{{productName}}</h5>
+                <p class="card-text">{{price}}</p>
+                <input type="hidden" value="{{_id}}" name="input {{_id}}"><br />
+                <div class="form-check d-flex">
+                    <input name="add {{_id}}" class="form-check" type="checkbox" id="add {{_id}}"
+                        onclick='add("{{_id}}",{{price}})'>
+                    <label class="form-check-label ps-2" for="add {{_id}}">Add Product</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+
+</div>
+
+
+
+<script type="text/javascript">
+    let total = 0;
+    function add(_id, price) {
+
+        if (document.getElementById('add ' + _id).checked) {
+            total += price;
+        } else {
+            total -= price;
+        }
+        document.getElementById('total').innerHTML = 'Gs. ' + total;
+    }
+
+    function generateDebt(e) {
+        e.preventDefault();
+        let data = undefined;
+        let docId = undefined;
+        let payUrl = undefined;
+        let amount = document.getElementById('total').innerHTML;
+        amount = amount.split(" ")[1];
+        console.log(amount)
+
+        let startDate = new Date();
+        let endDate = new Date(new Date().getTime() + (5 * 24 * 60 * 60 * 1000));
+
+        startDate = startDate.getFullYear() + '-' + pad(startDate.getMonth() + 1)
+            + '-' + pad(startDate.getDate()) + 'T' + pad(startDate.getHours()) + ':'
+            + pad(startDate.getMinutes()) + ':' + pad(startDate.getSeconds()) + '+0000'
+        //2018-01-07T15:46:23+0000
+        //startDate = startDate.toUTCString();
+
+        endDate = endDate.getFullYear() + '-' + pad(endDate.getMonth() + 1)
+            + '-' + pad(endDate.getDate()) + 'T' + pad(endDate.getHours()) + ':'
+            + pad(endDate.getMinutes()) + ':' + pad(endDate.getSeconds()) + '+0000'
+
+        console.log(startDate)
+        console.log(endDate)
+
+        //let data = '{"debt": {"docId": "test003",  "amount": {    "currency": "PYG",   "value": 50000 }, "label": "Deuda desde AJAX", "validPeriod": {"start": "2018-01-07T15:46:23+0000", "end": "2021-12-07T15:46:23+0000" }}}';
+
+        $.ajax({
+            method: "POST",
+            //url: "http://localhost:3000/generate-debt",
+            url: "https://adams-pay-integration.herokuapp.com/generate-debt",
+            data: { amount: amount, status: "Pending" },
+            success: function (res) {
+                docId = res.debt._id
+                data = {
+                    "debt": {
+                        "docId": docId,
+                        "amount": {
+                            "currency": "PYG",
+                            "value": amount
+                        },
+                        "label": "Deuda desde AJAX",
+                        "validPeriod": {
+                            /*"start": "2021-07-21T15:46:23+0000",
+                            "end": "2021-07-26T15:46:23+0000"*/
+                            "start": startDate,
+                            "end": endDate
+                        }
+                    }
+                };
+                data = JSON.stringify(data);
+                console.log(data)
+                generatePayAdams(data, docId);
+            }
+        });      
+
+    }
+
+    function generatePayAdams(data, docId) {
+        $.ajax({
+            type: "POST",
+            url: 'https://staging.adamspay.com/api/v1/debts',
+            headers: { "apiKey": "ap-01ee2c79b90ca944b86d4b55", 'Content-Type': 'application/json' },
+            data: data,
+            success: function (res) {
+                payUrl = res.debt.payUrl;
+                updatePayUrl(docId, payUrl)
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+    }
+
+    function pad(number) {
+        if (number < 10) {
+            return '0' + number;
+        }
+        return number;
+    }
+
+    function updatePayUrl(docId, payUrl) {
+        $.ajax({
+            type: "PUT",
+            //url: 'http://localhost:3000/update-debt/' + docId,
+            url: "https://adams-pay-integration.herokuapp.com/" + docId,
+            data: { payUrl: payUrl },
+            success: function () {
+                //window.location.replace("http://localhost:3000")
+                window.location.replace("https://adams-pay-integration.herokuapp.com/");
+            },
+            error: function (res) {
+                console.log(res)
+                alert("se ha producido un error");
+            }
+        });
+    }
+
+
+
+</script>

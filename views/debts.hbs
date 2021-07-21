@@ -1,0 +1,29 @@
+
+<a class="btn btn-primary" href="/new-debt">New debt</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Transaccion id</td>
+            <td>Amount</td>
+            <td>Status</td>
+            <td>Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each debts}}
+        <tr>
+            <td>{{_id}}</td>
+            <td>{{amount}}</td>
+            <td>{{status}}</td>
+            <td>
+                {{#ifEquals status "Pending"}}
+                <a class="btn btn-success" href="{{payUrl}}" target="_blank">Pay</a>
+                {{else}}
+                <a class="btn btn-danger disabled" href="" target="_blank">Paid</a>
+                {{/ifEquals}}
+
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
