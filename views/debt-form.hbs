@@ -51,7 +51,8 @@
         let amount = document.getElementById('total').innerHTML;
         amount = amount.split(" ")[1];
         if(amount == 0){
-            alert('You must select at least one product');            
+            alert('You must select at least one product');
+            $("#btn-gd").prop('disabled', false);            
             return;
         }
         console.log(amount)
